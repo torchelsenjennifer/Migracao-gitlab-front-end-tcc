@@ -1,4 +1,5 @@
-'use client'
+"use client";
+import Filtro from "@/componentes/filtro";
 import Footer from "@/componentes/footer";
 import MenuBar from "@/componentes/menubar";
 
@@ -6,7 +7,8 @@ export default function Home() {
   return (
     <main>
       <MenuBar />
-	  <Footer/>
+      <Filtro />
+      <Footer />
     </main>
   );
 }
