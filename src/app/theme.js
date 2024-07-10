@@ -32,7 +32,7 @@ export const theme = extendTheme({
   styles: {
     global: {
       body: {
-        bg: "black", // Replace with your desired color
+        bg: "black",
       },
     },
   },
