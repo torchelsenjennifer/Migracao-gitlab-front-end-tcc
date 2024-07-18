@@ -29,7 +29,7 @@ export default function Filtro() {
           mt={"50px"}
           mb={"50px"}
         >
-          Sua duvida se encontra em qual area?
+          Sua dúvida se encontra em qual área?
         </Text>
 
         <Flex justifyContent="center" py={4}>
