@@ -4,7 +4,7 @@ import Footer from "@/componentes/footer";
 import MenuBar from "@/componentes/menubar";
 import { useEffect, useState } from "react";
 import theme from "@/app/theme";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, Box, SimpleGrid, Center } from "@chakra-ui/react";
 
 const Listagem = () => {
   const [mentores, setMentores] = useState([]);
@@ -28,7 +28,13 @@ const Listagem = () => {
     <main>
       <ChakraProvider theme={theme}>
         <MenuBar showButtons={false} />
-        <div>{listaMentores}</div>
+        <Center>
+          <Box maxWidth="1200px" padding="4">
+            <SimpleGrid columns={3} spacing="4">
+              {listaMentores}
+            </SimpleGrid>
+          </Box>
+        </Center>
         <Footer />
       </ChakraProvider>
     </main>
