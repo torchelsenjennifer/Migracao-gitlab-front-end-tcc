@@ -62,7 +62,7 @@ const Mentor = () => {
                 color="black"
                 fontWeight="bold"
               >
-                Tiago Ferreira
+                Jennifer
               </Text>
               <Box bg="black" p={6} textAlign="center" mx="auto">
                 <Text color="white" fontSize="md">
