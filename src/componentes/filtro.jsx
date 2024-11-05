@@ -14,8 +14,7 @@ export default function Filtro() {
     <ChakraProvider theme={theme}>
       <Box
         px={4}
-        mt={"400px"}
-        minHeight="100vh"
+        mt={"200px"}
         display="flex"
         flexDirection="column"
         alignItems="center"
