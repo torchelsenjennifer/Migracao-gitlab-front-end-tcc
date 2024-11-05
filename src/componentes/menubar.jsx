@@ -13,7 +13,7 @@ export default function MenuBar({ showButtons = true }) {
   return (
     <ChakraProvider theme={theme}>
       <Box px={4}>
-        <Flex h={16} alignItems="center" justifyContent="space-between">
+        <Flex h={16} alignItems="center" justifyContent="space-between" mt={5}>
           <Flex alignItems="center">
             <Link href="/">
               <Image
