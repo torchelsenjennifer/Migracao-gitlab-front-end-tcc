@@ -20,7 +20,7 @@ import {
 
 	const onSubmit = async (data) => {
 	  try {
-		const response = await fetch("http://localhost:3001/mentoress", {
+		const response = await fetch("http://localhost:3001/mentores", {
 		  method: "POST",
 		  headers: {
 			"Content-Type": "application/json",

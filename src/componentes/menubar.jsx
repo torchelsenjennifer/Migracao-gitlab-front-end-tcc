@@ -34,7 +34,7 @@ export default function MenuBar({ showButtons = true }) {
                   Cadastrar-se
                 </Button>
               </a>
-              <a href="/logar">
+              <a href="/login">
                 <Button colorScheme="laranja">Logar</Button>
               </a>
             </Flex>
