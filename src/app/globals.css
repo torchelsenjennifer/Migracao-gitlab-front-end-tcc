@@ -109,3 +109,13 @@ a {
 body {
   background-color: black;
 }
+
+
+input:focus {
+	border-color: #ffffff !important;
+}
+
+
+select option{
+	color: #000000 !important;
+}

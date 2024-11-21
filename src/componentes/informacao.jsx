@@ -1,4 +1,4 @@
-import {
+﻿import {
 	Box,
 	ChakraProvider,
 	Flex,
@@ -13,10 +13,10 @@ export default function Informacao() {
 			<Flex direction="column" alignItems="center" justifyContent="center" mt={100}>
 				<Flex mt={6} justifyContent="space-around" width="100%" maxWidth="1200px">
 					<Box textAlign="center">
-						<Text fontWeight="bold" color="white" mb={2}>Esta com duvida?</Text>
+						<Text fontWeight="bold" color="white" mb={2}>Esta com dúvida?</Text>
 						<Image
 							src="/Ellipse4.png"
-							alt="Duvida"
+							alt="Dúvida"
 							boxSize="150px"
 							objectFit="cover"
 							mt={10}

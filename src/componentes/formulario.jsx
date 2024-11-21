@@ -1,143 +1,199 @@
 import {
-	Box,
-	Button,
-	FormControl,
-	FormLabel,
-	ChakraProvider,
-	Input,
-	Flex,
-	Text,
-	Grid,
-	GridItem,
-	Select,
-	Textarea,
-  } from "@chakra-ui/react";
-  import { useForm } from "react-hook-form";
-  import theme from "@/app/theme";
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  ChakraProvider,
+  Input,
+  Flex,
+  Text,
+  Grid,
+  GridItem,
+  Select,
+  Textarea,
+} from "@chakra-ui/react";
+import { useForm } from "react-hook-form";
+import theme from "@/app/theme";
+import config from "../config.js";
+import { useEffect, useState } from "react";
 
-  export default function Formulario() {
-	const { register, handleSubmit, reset } = useForm();
+export default function Formulario() {
+  const { register, handleSubmit, reset } = useForm();
+  const [areas, setAreas] = useState([]);
 
-	const onSubmit = async (data) => {
-	  try {
-		const response = await fetch("http://localhost:3001/mentores", {
-		  method: "POST",
-		  headers: {
-			"Content-Type": "application/json",
-		  },
-		  body: JSON.stringify(data),
-		});
+  const onSubmit = async (data) => {
+    try {
+      const formData = new FormData();
 
-		if (response.ok) {
-		  alert("Cadastro realizado com sucesso!");
-		  reset();
-		} else {
-		  alert("Erro ao cadastrar. Tente novamente.");
-		}
-	  } catch (error) {
-		console.error("Erro ao cadastrar:", error);
-		alert("Erro ao conectar com a API.");
-	  }
-	};
+      formData.append("nome", data.nome);
+      formData.append("profissao", data.profissao);
+      formData.append("email", data.email);
+      formData.append("telefone", data.telefone);
+      formData.append("area_id", data.area_id);
+      formData.append("linkedin", data.linkedin);
+      formData.append("senha", data.senha);
+      formData.append("descricao", data.descricao);
+      formData.append("calendly", data.calendly);
 
-	return (
-	  <ChakraProvider theme={theme}>
-		<Flex direction="column" alignItems="center">
-		  <Text color="#FFFF" fontWeight="bold" fontSize="x-large" ml={50}>
-			Bem Vindo(a),
-		  </Text>
-		  <Text color="#FFFF" fontWeight="bold" fontSize="x-large" ml={50}>
-			Faca seu Cadastro
-		  </Text>
-		  <Box
-			bg="orange.500"
-			p={8}
-			borderRadius="md"
-			boxShadow="md"
-			width="800px"
-			mt={"30px"}
-			mb={"100px"}
-		  >
-			<form onSubmit={handleSubmit(onSubmit)}>
-			  <Grid templateColumns="repeat(2, 1fr)" gap={6}>
-				<GridItem>
-				  <FormControl id="nome">
-					<FormLabel>Nome</FormLabel>
-					<Input type="text" {...register("nome", { required: true })} />
-				  </FormControl>
-				</GridItem>
-				<GridItem>
-				  <FormControl id="cpf">
-					<FormLabel>CPF</FormLabel>
-					<Input type="text" {...register("cpf", { required: true })} />
-				  </FormControl>
-				</GridItem>
-				<GridItem>
-				  <FormControl id="email">
-					<FormLabel>Email</FormLabel>
-					<Input type="email" {...register("email", { required: true })} />
-				  </FormControl>
-				</GridItem>
-				<GridItem>
-				  <FormControl id="telefone">
-					<FormLabel>WhatsApp</FormLabel>
-					<Input type="text" {...register("telefone", { required: true })} />
-				  </FormControl>
-				</GridItem>
-				<GridItem>
-				  <FormControl id="interesse">
-					<FormLabel>Area de Interesse</FormLabel>
-					<Select placeholder="Selecione uma opcao" {...register("interesse")}>
-					  <option value="Back-End">Back-End</option>
-					  <option value="DevOps">DevOps</option>
-					  <option value="Infra">Infra</option>
-					</Select>
-				  </FormControl>
-				</GridItem>
-				<GridItem>
-				  <FormControl id="linkedin">
-					<FormLabel>Link do LinkedIn</FormLabel>
-					<Input type="url" {...register("linkedin")} />
-				  </FormControl>
-				</GridItem>
-				<GridItem>
-				  <FormControl id="senha">
-					<FormLabel>Senha</FormLabel>
-					<Input type="password" {...register("senha", { required: true })} />
-				  </FormControl>
-				</GridItem>
-				<GridItem>
-				  <FormControl id="descricao">
-					<FormLabel>Descricao</FormLabel>
-					<Textarea {...register("descricao")} />
-				  </FormControl>
-				</GridItem>
-				<GridItem>
-				  <FormControl id="calendly">
-					<FormLabel>Link do Calendly</FormLabel>
-					<Input type="url" {...register("calendly")} />
-				  </FormControl>
-				</GridItem>
-				<GridItem>
-				  <FormControl id="foto">
-					<FormLabel>Cadastro da Foto</FormLabel>
-					<Input type="url" {...register("foto")} />
-				  </FormControl>
-				</GridItem>
-			  </Grid>
-			  <Button
-				type="submit"
-				bg="black"
-				color="white"
-				mt={4}
-				width="full"
-				_hover={{ bg: "gray.700" }}
-			  >
-				Cadastrar
-			  </Button>
-			</form>
-		  </Box>
-		</Flex>
-	  </ChakraProvider>
-	);
-  }
+      if (data.foto && data.foto[0]) {
+        formData.append("foto", data.foto[0]);
+      }
+
+      const response = await fetch(`${config.API_URL}/mentores`, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        alert("Cadastro realizado com sucesso!");
+        reset();
+      } else {
+        alert("Erro ao cadastrar. Tente novamente.");
+      }
+    } catch (error) {
+      console.error("Erro ao cadastrar:", error);
+      alert("Erro ao conectar com a API.");
+    }
+  };
+
+  useEffect(() => {
+    async function getAreas() {
+      const response = await fetch(`${config.API_URL}/areas`, {
+        method: "GET",
+      });
+      const retorno = await response.json();
+      setAreas(retorno);
+    }
+    getAreas();
+  }, []);
+
+  return (
+    <ChakraProvider theme={theme}>
+      <Flex direction="column" alignItems="center">
+        <Text color="#FFFF" fontWeight="bold" fontSize="x-large" ml={50}>
+          Bem-Vindo(a),
+        </Text>
+        <Text color="#FFFF" fontWeight="bold" fontSize="x-large" ml={50}>
+          Faça seu Cadastro
+        </Text>
+        <Box
+          bg="orange.500"
+          p={8}
+          borderRadius="md"
+          boxShadow="md"
+          width="800px"
+          mt={"30px"}
+          mb={"100px"}
+        >
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Grid templateColumns="repeat(2, 1fr)" gap={6}>
+              <GridItem>
+                <FormControl id="nome">
+                  <FormLabel color="white">Nome</FormLabel>
+                  <Input
+                    color="white"
+                    type="text"
+                    {...register("nome", { required: true })}
+                  />
+                </FormControl>
+              </GridItem>
+              <GridItem>
+                <FormControl id="profissao">
+                  <FormLabel color="white">Profissão</FormLabel>
+                  <Input
+                    color="white"
+                    type="text"
+                    {...register("profissao", { required: true })}
+                  />
+                </FormControl>
+              </GridItem>
+              <GridItem>
+                <FormControl id="email">
+                  <FormLabel color="white">Email</FormLabel>
+                  <Input
+                    color="white"
+                    type="email"
+                    {...register("email", { required: true })}
+                  />
+                </FormControl>
+              </GridItem>
+              <GridItem>
+                <FormControl id="telefone">
+                  <FormLabel color="white">WhatsApp</FormLabel>
+                  <Input
+                    color="white"
+                    type="text"
+                    {...register("telefone", { required: true })}
+                  />
+                </FormControl>
+              </GridItem>
+              <GridItem>
+                <FormControl id="area_id">
+                  <FormLabel color="white">Área de Interesse</FormLabel>
+                  <Select
+                    placeholder="Selecione uma opção..."
+                    color="white"
+                    {...register("area_id")}
+                  >
+                    {areas.map((area) => (
+                      <option value={area.id}>{area.descricao}</option>
+                    ))}
+                  </Select>
+                </FormControl>
+              </GridItem>
+              <GridItem>
+                <FormControl id="linkedin">
+                  <FormLabel color="white">Link do LinkedIn</FormLabel>
+                  <Input color="white" type="url" {...register("linkedin")} />
+                </FormControl>
+              </GridItem>
+              <GridItem>
+                <FormControl id="senha">
+                  <FormLabel color="white">Senha</FormLabel>
+                  <Input
+                    color="white"
+                    type="password"
+                    {...register("senha", { required: true })}
+                  />
+                </FormControl>
+              </GridItem>
+              <GridItem>
+                <FormControl id="descricao">
+                  <FormLabel color="white">Descrição</FormLabel>
+                  <Textarea {...register("descricao")} />
+                </FormControl>
+              </GridItem>
+              <GridItem>
+                <FormControl id="calendly">
+                  <FormLabel color="white">Link do Calendly</FormLabel>
+                  <Input color="white" type="url" {...register("calendly")} />
+                </FormControl>
+              </GridItem>
+              <GridItem>
+                <FormControl id="foto">
+                  <FormLabel color="white">Upload de Foto</FormLabel>
+                  <Input
+                    color="white"
+                    type="file"
+                    accept="image/jpeg, image/png, image/gif, image/webp"
+                    {...register("foto")}
+                  />
+                </FormControl>
+              </GridItem>
+            </Grid>
+            <Button
+              type="submit"
+              bg="white"
+              color="black"
+              mt={4}
+              width="full"
+              _hover={{ bg: "gray.700" }}
+            >
+              Cadastrar
+            </Button>
+          </form>
+        </Box>
+      </Flex>
+    </ChakraProvider>
+  );
+}

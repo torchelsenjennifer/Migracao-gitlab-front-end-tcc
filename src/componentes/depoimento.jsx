@@ -11,7 +11,7 @@ import {
   export default function Depoimento() {
 	const testimonials = [
 	  {
-		name: "Joao Silva",
+		name: "Jennifer Silva",
 		profession: "Estudante de Analise de Sistemas",
 		image: "/depoimentoA.jpg",
 		feedback: "A plataforma me ajudou a entender conceitos complexos de programacao e me deu a confianca para avancar na minha carreira."
@@ -34,7 +34,7 @@ import {
 	  <ChakraProvider theme={theme}>
 		<Flex direction="column" alignItems="center" mt={10} p={5}>
 		  <Text fontWeight="bold" fontSize="3xl" color="white" mb={8}>
-			Conheca os depoimentos de quem acabou com suas duvidas
+			Conheça os depoimentos de quem acabou com suas dúvidas
 		  </Text>
 
 		  <Flex
