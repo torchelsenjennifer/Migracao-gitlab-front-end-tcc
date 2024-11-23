@@ -12,24 +12,24 @@ import {
 	CardFooter,
 	ButtonGroup,
 	Card,
+	Grid,
+	GridItem,
   } from "@chakra-ui/react";
   import theme from "@/app/theme";
   import { useRouter } from "next/navigation";
-  import config from '../config.js';
+  import config from "../config.js";
+  import { GraduationCap, Building2, BriefcaseBusiness } from "lucide-react";
 
   export default function CardMentor(props) {
 	const router = useRouter();
 	return (
 	  <ChakraProvider theme={theme}>
 		<Flex justify="center" gap="3" wrap="wrap">
-		  <Card
-			width="300px"
-			bg="orange.400"
-		  >
+		  <Card width="300px" bg="orange.400">
 			<CardBody>
 			  <Stack mt="1" spacing="3" align="center">
 				<Image
-				  src={`${config.API_URL}/uploads/${props.mentor.foto}`} // Concatenando a URL base com o nome do arquivo
+				  src={`${config.API_URL}/uploads/${props.mentor.foto}`}
 				  alt="Mentor Foto"
 				  borderRadius="50%"
 				  width="200px"
@@ -39,13 +39,32 @@ import {
 				<Text fontSize="2xl" color="black">
 				  {props.mentor.nome}
 				</Text>
-				<Text color="black">{props.mentor.profissao}</Text>
-				<Text color="black">Oferece mentoria em:</Text>
-				<Text color="black">{props.mentor.interesse}</Text>
+				<Grid templateColumns="30px 1fr" gap="2" alignItems="center">
+				  <GridItem>
+					<BriefcaseBusiness />
+				  </GridItem>
+				  <GridItem>
+					<Text fontSize="14px" color="black">{props.mentor.profissao}</Text>
+				  </GridItem>
+
+				  <GridItem>
+					<Building2 />
+				  </GridItem>
+				  <GridItem>
+					<Text fontSize="14px" color="black">{props.mentor.empresa}</Text>
+				  </GridItem>
+
+				  <GridItem>
+					<GraduationCap />
+				  </GridItem>
+				  <GridItem>
+					<Text fontSize="14px" color="black">{props.mentor.formacao}</Text>
+				  </GridItem>
+				</Grid>
 			  </Stack>
 			</CardBody>
 			<Divider />
-			<CardFooter>
+			<CardFooter justifyContent="center">
 			  <ButtonGroup spacing="2">
 				<Button
 				  variant="solid"

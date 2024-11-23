@@ -13,7 +13,7 @@ import {Copyright } from "lucide-react";
 export default function Footer() {
   return (
     <ChakraProvider theme={theme}>
-      <Flex direction="column" px={4} bg="#696969" alignItems="center" mt={10}>
+      <Flex className="rodape" direction="column" px={4} bg="#696969" alignItems="center">
         <Text color="#FFFF" fontSize="lg" ml={50}>
           APRENDA COM OS MELHORES, SEJA{" "}
           <Text color="orange.500" as="span">

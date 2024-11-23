@@ -34,6 +34,8 @@ export default function Formulario() {
       formData.append("senha", data.senha);
       formData.append("descricao", data.descricao);
       formData.append("calendly", data.calendly);
+      formData.append("empresa", data.empresa);
+      formData.append("formacao", data.formacao);
 
       if (data.foto && data.foto[0]) {
         formData.append("foto", data.foto[0]);
@@ -158,15 +160,35 @@ export default function Formulario() {
                 </FormControl>
               </GridItem>
               <GridItem>
+                <FormControl id="empresa">
+                  <FormLabel color="white">Empresa</FormLabel>
+                  <Input
+                    color="white"
+                    type="text"
+                    {...register("empresa", { required: true })}
+                  />
+                </FormControl>
+              </GridItem>
+              <GridItem>
                 <FormControl id="descricao">
                   <FormLabel color="white">Descrição</FormLabel>
-                  <Textarea {...register("descricao")} />
+                  <Textarea color="white" {...register("descricao")} />
                 </FormControl>
               </GridItem>
               <GridItem>
                 <FormControl id="calendly">
                   <FormLabel color="white">Link do Calendly</FormLabel>
                   <Input color="white" type="url" {...register("calendly")} />
+                </FormControl>
+              </GridItem>
+              <GridItem>
+                <FormControl id="formacao">
+                  <FormLabel color="white">Formação</FormLabel>
+                  <Input
+                    color="white"
+                    type="formacao"
+                    {...register("formacao", { required: true })}
+                  />
                 </FormControl>
               </GridItem>
               <GridItem>
