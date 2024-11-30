@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Box,
   Button,
@@ -10,16 +12,20 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 import theme from "@/app/theme";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+import { LoginContext } from "@/Context/LoginContext";
+import { jwtDecode } from "jwt-decode";
 
 export default function Login() {
+  const { handleLogin } = useContext(LoginContext);
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [error, setError] = useState("");
+  const router = useRouter();
 
-  const handleLogin = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
@@ -28,7 +34,31 @@ export default function Login() {
         email,
         senha,
       });
-      console.log(response.data);
+      const { token } = response.data;
+
+      if (token) {
+        localStorage.setItem("token", token);
+        console.log("Token recebido:", token);
+        const decodedToken = jwtDecode(token);
+        if (
+          decodedToken &&
+          decodedToken.id &&
+          decodedToken.email &&
+          decodedToken.nome
+        ) {
+          handleLogin({
+            id: decodedToken.id,
+            email: decodedToken.email,
+            nome: decodedToken.nome,
+          });
+
+          router.push("/");
+        } else {
+          setError("Token inválido ou incompleto.");
+        }
+      } else {
+        setError("Erro ao obter token.");
+      }
     } catch (err) {
       setError(err.response?.data?.erro || "Erro ao fazer login");
     }
@@ -61,7 +91,7 @@ export default function Login() {
           >
             FACA SEU LOGIN
           </Text>
-          <form onSubmit={handleLogin}>
+          <form onSubmit={handleSubmit}>
             <FormControl id="email" mb={4}>
               <FormLabel color="white">Email</FormLabel>
               <Input
