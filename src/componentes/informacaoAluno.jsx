@@ -37,7 +37,7 @@
 
 			<Box textAlign="center" ml={[0, 8]}>
 			  <Text fontWeight="bold" color="white" mb={4} fontSize="2xl">
-				Qual e a sua dúvida?
+				Qual é a sua dúvida?
 			  </Text>
 			  <Button colorScheme="orange" size="lg">
 				Encontrar Mentor!
