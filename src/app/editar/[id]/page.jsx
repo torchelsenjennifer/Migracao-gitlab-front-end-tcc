@@ -11,14 +11,15 @@ import {
   Text,
   Grid,
   GridItem,
-  Select,
   Textarea,
+  Select,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import theme from "@/app/theme";
 import config from "../../../config.js";
 import { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
+import MenuBar from "@/componentes/menubar.jsx";
 
 export default function Formulario() {
   const { register, handleSubmit, reset } = useForm();
@@ -28,47 +29,41 @@ export default function Formulario() {
 
   const onSubmit = async (data) => {
     try {
-      const formData = new FormData();
-      formData.append("nome", data.nome);
-      formData.append("profissao", data.profissao);
-      formData.append("email", data.email);
-      formData.append("telefone", data.telefone);
-      formData.append("area_id", data.area_id);
-      formData.append("linkedin", data.linkedin);
-      formData.append("senha", data.senha);
-      formData.append("descricao", data.descricao);
-      formData.append("calendly", data.calendly);
-      formData.append("empresa", data.empresa);
-      formData.append("formacao", data.formacao);
-
-      if (data.foto && data.foto[0]) {
-        formData.append("foto", data.foto[0]);
-      }
-
-      const response = await fetch(`${config.API_URL}/mentores`, {
+      // Enviar dados como um objeto JSON em vez de FormData
+      const response = await fetch(`${config.API_URL}/mentor/alterar/${id}`, {
         method: "PUT",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data), // Envia os dados no formato JSON
       });
 
+      const result = await response.json(); // Resposta detalhada da API
+
       if (response.ok) {
-        alert("Cadastro realizado com sucesso!");
-        reset();
+        alert("Cadastro atualizado com sucesso!");
+        reset(); // Limpar formulário após sucesso
       } else {
-        alert("Erro ao cadastrar. Tente novamente.");
+        console.error("Erro ao atualizar:", result);
+        alert(`Erro ao atualizar: ${result.msg || "Tente novamente."}`);
       }
     } catch (error) {
-      console.error("Erro ao cadastrar:", error);
+      console.error("Erro ao conectar com a API:", error);
       alert("Erro ao conectar com a API.");
     }
   };
 
   useEffect(() => {
     async function getAreas() {
-      const response = await fetch(`${config.API_URL}/areas`, {
-        method: "GET",
-      });
-      const retorno = await response.json();
-      setAreas(retorno);
+      try {
+        const response = await fetch(`${config.API_URL}/areas`, {
+          method: "GET",
+        });
+        const retorno = await response.json();
+        setAreas(retorno);
+      } catch (error) {
+        console.error("Erro ao buscar áreas:", error);
+      }
     }
     getAreas();
   }, []);
@@ -76,10 +71,14 @@ export default function Formulario() {
   useEffect(() => {
     if (id) {
       async function getMentorData() {
-        const response = await fetch(`${config.API_URL}/mentores/${id}`);
-        const data = await response.json();
-        setMentorData(data);
-        reset(data);
+        try {
+          const response = await fetch(`${config.API_URL}/mentores/${id}`);
+          const data = await response.json();
+          setMentorData(data);
+          reset(data); // Preenche os campos com os dados recebidos
+        } catch (error) {
+          console.error("Erro ao buscar dados do mentor:", error);
+        }
       }
       getMentorData();
     }
@@ -87,6 +86,7 @@ export default function Formulario() {
 
   return (
     <ChakraProvider theme={theme}>
+      <MenuBar showButtons={false} />
       <Flex direction="column" alignItems="center">
         <Text color="#FFFF" fontWeight="bold" fontSize="x-large" ml={50}>
           Bem-Vindo(a),
@@ -100,8 +100,8 @@ export default function Formulario() {
           borderRadius="md"
           boxShadow="md"
           width="800px"
-          mt={"30px"}
-          mb={"100px"}
+          mt="30px"
+          mb="100px"
         >
           <form onSubmit={handleSubmit(onSubmit)}>
             <Grid templateColumns="repeat(2, 1fr)" gap={6}>
@@ -111,7 +111,9 @@ export default function Formulario() {
                   <Input
                     color="white"
                     type="text"
-                    {...register("nome", { required: true })}
+                    {...register("nome", {
+                      required: true,
+                    })}
                   />
                 </FormControl>
               </GridItem>
@@ -121,7 +123,9 @@ export default function Formulario() {
                   <Input
                     color="white"
                     type="text"
-                    {...register("profissao", { required: true })}
+                    {...register("profissao", {
+                      required: true,
+                    })}
                   />
                 </FormControl>
               </GridItem>
@@ -131,7 +135,9 @@ export default function Formulario() {
                   <Input
                     color="white"
                     type="email"
-                    {...register("email", { required: true })}
+                    {...register("email", {
+                      required: true,
+                    })}
                   />
                 </FormControl>
               </GridItem>
@@ -141,7 +147,9 @@ export default function Formulario() {
                   <Input
                     color="white"
                     type="text"
-                    {...register("telefone", { required: true })}
+                    {...register("telefone", {
+                      required: true,
+                    })}
                   />
                 </FormControl>
               </GridItem>
@@ -161,20 +169,11 @@ export default function Formulario() {
                   </Select>
                 </FormControl>
               </GridItem>
+
               <GridItem>
                 <FormControl id="linkedin">
                   <FormLabel color="white">Link do LinkedIn</FormLabel>
                   <Input color="white" type="url" {...register("linkedin")} />
-                </FormControl>
-              </GridItem>
-              <GridItem>
-                <FormControl id="senha">
-                  <FormLabel color="white">Senha</FormLabel>
-                  <Input
-                    color="white"
-                    type="password"
-                    {...register("senha", { required: true })}
-                  />
                 </FormControl>
               </GridItem>
               <GridItem>
@@ -183,7 +182,9 @@ export default function Formulario() {
                   <Input
                     color="white"
                     type="text"
-                    {...register("empresa", { required: true })}
+                    {...register("empresa", {
+                      required: true,
+                    })}
                   />
                 </FormControl>
               </GridItem>
@@ -205,18 +206,9 @@ export default function Formulario() {
                   <Input
                     color="white"
                     type="text"
-                    {...register("formacao", { required: true })}
-                  />
-                </FormControl>
-              </GridItem>
-              <GridItem>
-                <FormControl id="foto">
-                  <FormLabel color="white">Upload de Foto</FormLabel>
-                  <Input
-                    color="white"
-                    type="file"
-                    accept="image/jpeg, image/png, image/gif, image/webp"
-                    {...register("foto")}
+                    {...register("formacao", {
+                      required: true,
+                    })}
                   />
                 </FormControl>
               </GridItem>
