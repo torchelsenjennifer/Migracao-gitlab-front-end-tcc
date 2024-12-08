@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   Box,
@@ -70,7 +70,7 @@ export default function Login() {
         direction="column"
         alignItems="center"
         height="100vh"
-        justifyContent="center"
+
       >
         <Text color="#FFFF" fontWeight="bold" fontSize="x-large" mb={6}>
           Bem Vindo(a),
@@ -89,7 +89,7 @@ export default function Login() {
             mb={4}
             textAlign="center"
           >
-            FACA SEU LOGIN
+            FAÇA SEU LOGIN
           </Text>
           <form onSubmit={handleSubmit}>
             <FormControl id="email" mb={4}>
@@ -111,7 +111,7 @@ export default function Login() {
               />
             </FormControl>
 
-            {error && <Text color="red.500">{error}</Text>}
+            {error && <Text color="black">{error}</Text>}
 
             <Button
               type="submit"
@@ -136,11 +136,11 @@ export default function Login() {
 
           <Link href="/cadastrar">
             <Button
-              bg="blue.500"
+              bg="black"
               color="white"
               width="full"
               mt={4}
-              _hover={{ bg: "blue.700" }}
+              _hover={{ bg: "gray.700" }}
             >
               Cadastrar
             </Button>

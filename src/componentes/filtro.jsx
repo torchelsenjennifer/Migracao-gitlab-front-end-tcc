@@ -29,7 +29,7 @@ import {
 	  <ChakraProvider theme={theme}>
 		<Box
 		  px={4}
-		  mt={"200px"}
+		  mt={"150px"}
 		  display="flex"
 		  flexDirection="column"
 		  alignItems="center"
@@ -62,6 +62,7 @@ import {
 			  </Link>
 			))}
 		  </Flex>
+		  <Divider borderColor="#FF6A16" mt="35px" borderWidth="2px" width="60%" />
 		</Box>
 	  </ChakraProvider>
 	);

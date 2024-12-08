@@ -15,12 +15,14 @@
 		<Flex
 		  direction="column"
 		  alignItems="center"
-		  justifyContent="center"
+		   justifyContent="center"
 		  mt={10}
 		>
 		  <Flex
 			mt={6}
-			justifyContent="space-around"
+			justifyContent="center"
+			gap="25px"
+			borderRadius="20px"
 			width="100%"
 			maxWidth="1200px"
 			flexDirection={["column", "row"]}
@@ -32,10 +34,11 @@
 				alt="Imagem de Mentor"
 				boxSize="300px"
 				objectFit="cover"
+				borderRadius={20}
 			  />
 			</Box>
 
-			<Box textAlign="center" ml={[0, 8]}>
+			<Box minWidth="30%" textAlign="center" ml={[0, 8]}>
 			  <Text fontWeight="bold" color="white" mb={4} fontSize="2xl">
 				Qual é a sua dúvida?
 			  </Text>

@@ -196,7 +196,9 @@ export default function Formulario() {
                   <FormLabel color="white">Upload de Foto</FormLabel>
                   <Input
                     color="white"
+					pd
                     type="file"
+					pt="4px"
                     accept="image/jpeg, image/png, image/gif, image/webp"
                     {...register("foto")}
                   />

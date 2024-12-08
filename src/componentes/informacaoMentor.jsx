@@ -5,7 +5,7 @@ import {
   Text,
   Image,
   Button,
-  Divider
+  Divider,
 } from "@chakra-ui/react";
 import theme from "@/app/theme";
 
@@ -16,11 +16,13 @@ export default function InformacoesMentores() {
         direction="column"
         alignItems="center"
         justifyContent="center"
-        mt={150}
+        mt="50px"
       >
         <Flex
           mt={6}
-          justifyContent="space-around"
+          justifyContent="center"
+          gap="25px"
+		  borderRadius="20px"
           width="100%"
           maxWidth="1200px"
           flexDirection={["column", "row"]}
@@ -32,10 +34,11 @@ export default function InformacoesMentores() {
               alt="Imagem de Mentor"
               boxSize="300px"
               objectFit="cover"
+			  borderRadius={20}
             />
           </Box>
 
-          <Box textAlign="center" ml={[0, 8]}>
+          <Box textAlign="center" minWidth="30%" ml={[0, 8]}>
             <Text fontWeight="bold" color="white" mb={4} fontSize="2xl">
               Que tal se tornar um mentor?
             </Text>
@@ -44,13 +47,13 @@ export default function InformacoesMentores() {
             </Button>
           </Box>
         </Flex>
-		<Divider
-            borderColor="#FF6A16"
-            borderWidth="2px"
-            width="60%"
-			mt={"50px"}
-			mb={"50px"}
-          />
+        <Divider
+          borderColor="#FF6A16"
+          borderWidth="2px"
+          width="60%"
+          mt={"70px"}
+          mb={"50px"}
+        />
       </Flex>
     </ChakraProvider>
   );

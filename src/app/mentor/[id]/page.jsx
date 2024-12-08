@@ -23,7 +23,6 @@ const Mentor = () => {
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
 
-  // Carregar dados do mentor
   useEffect(() => {
     if (!id) return;
 
@@ -44,7 +43,6 @@ const Mentor = () => {
     getMentorDados();
   }, [id]);
 
-  // Carregar script do Calendly após mentorDados ser definido
   useEffect(() => {
     if (mentorDados && mentorDados.calendly) {
       const script = document.createElement("script");
@@ -95,14 +93,14 @@ const Mentor = () => {
         mb="25px"
       >
         <Box bg="orange.500" p={10} textAlign="center" width="90%">
-          <Flex justifyContent="space-between" alignItems="center">
+          <Flex  alignItems="center">
             <Image
               src={`${config.API_URL}/uploads/${mentorDados.foto}`}
               alt="Foto do Profissional"
               boxSize="150px"
               borderRadius="50%"
-              height="150px"
-              width="150px"
+              height="200px"
+              width="200px"
               mr={8}
             />
             <Box>
@@ -124,7 +122,6 @@ const Mentor = () => {
                     {mentorDados.profissao}
                   </Text>
                 </GridItem>
-
                 <GridItem>
                   <Building2 />
                 </GridItem>
@@ -133,7 +130,6 @@ const Mentor = () => {
                     {mentorDados.empresa}
                   </Text>
                 </GridItem>
-
                 <GridItem>
                   <GraduationCap />
                 </GridItem>
@@ -147,9 +143,7 @@ const Mentor = () => {
                 <Text color="orange.300" textAlign="left" fontSize="lg" fontWeight="bold" mb={4}>
                   Sobre o Mentor
                 </Text>
-
-                {/* Descrição */}
-                <Text color="white" textAlign="left" fontSize="md">
+                <Text color="white" textAlign="justify" fontSize="md">
                   {mentorDados.descricao}
                 </Text>
               </Box>

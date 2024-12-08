@@ -23,11 +23,11 @@ export default function MenuBar({ showButtons = true }) {
               <Image
                 src="/wise-share.png"
                 alt="logo"
-                width="50px"
-                height="50px"
+                width="80px"
+                height="80px"
               />
             </Link>
-            <Text color="#FF6A16" fontWeight="bold" fontSize="xl" ml={4}>
+            <Text color="#FF6A16" fontWeight="bold" fontSize="25px"  ml={4}>
               Wise Share
             </Text>
           </Flex>
