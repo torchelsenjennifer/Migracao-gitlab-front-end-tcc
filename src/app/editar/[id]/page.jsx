@@ -42,7 +42,6 @@ export default function Formulario() {
 
       if (response.ok) {
         alert("Cadastro atualizado com sucesso!");
-        reset(); // Limpar formulário após sucesso
       } else {
         console.error("Erro ao atualizar:", result);
         alert(`Erro ao atualizar: ${result.msg || "Tente novamente."}`);

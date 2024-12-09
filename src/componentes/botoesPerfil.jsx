@@ -48,7 +48,7 @@ export default function BotoesPerfil({ showButtons = true }) {
                         leftIcon={<Award size={50} color='black' />}
                         m={4}
                     >
-                        Premium
+                        Ser Premium
                     </Button>
                 </Link>
             </Flex>
